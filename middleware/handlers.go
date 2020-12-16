@@ -53,7 +53,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		ID:      insertID,
 		Message: "User created successfully",
 	}
-	json.NewEncoder(w).Encode(res)
+	_ = json.NewEncoder(w).Encode(res)
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +71,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Unable to get user. %v", err)
 	}
 	// send the response
-	json.NewEncoder(w).Encode(user)
+	_ = json.NewEncoder(w).Encode(user)
 }
 
 func GetAllUser(w http.ResponseWriter, r *http.Request) {
@@ -83,7 +83,7 @@ func GetAllUser(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Unable to get all user. %v", err)
 	}
 	// send all the users as response
-	json.NewEncoder(w).Encode(users)
+	_ = json.NewEncoder(w).Encode(users)
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
@@ -111,7 +111,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		Message: msg,
 	}
 	// send the response
-	json.NewEncoder(w).Encode(res)
+	_ = json.NewEncoder(w).Encode(res)
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
@@ -133,10 +133,9 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		Message: msg,
 	}
 	// send the response
-	json.NewEncoder(w).Encode(res)
+	_ = json.NewEncoder(w).Encode(res)
 }
 
-//------------------------- handler functions ----------------
 func insertUser(user models.User) int64 {
 	db := createConnection()
 	defer db.Close()
