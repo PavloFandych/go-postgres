@@ -15,8 +15,8 @@ var (
 
 func ConnectDb() {
 	if db == nil {
-		if environmentError := godotenv.Load(".env"); environmentError != nil {
-			log.Fatal("Error loading .env file")
+		if environmentError := godotenv.Load(".properties"); environmentError != nil {
+			log.Fatal("Error loading .properties file")
 		}
 		database, openDbError := sql.Open("postgres", os.Getenv("POSTGRES_URL"))
 		if openDbError != nil {
@@ -38,5 +38,7 @@ func GetDB() *sql.DB {
 }
 
 func ShutdownDb() {
-	db.Close()
+	if closeError := db.Close(); closeError != nil {
+		log.Fatal("Unable to close db")
+	}
 }
