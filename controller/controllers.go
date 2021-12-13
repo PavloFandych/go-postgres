@@ -43,9 +43,15 @@ func Get(responseWriter http.ResponseWriter, request *http.Request) {
 
 func GetAll(responseWriter http.ResponseWriter, _ *http.Request) {
 	users := storage.GetAllUsers()
-	if encodeError := json.NewEncoder(responseWriter).Encode(users); encodeError != nil {
-		log.Fatalf("Unable to encode the response. %v", encodeError)
+	if len(users) > 0 {
+		encodeError := json.NewEncoder(responseWriter).Encode(users)
+		if encodeError != nil {
+			log.Fatalf("Unable to encode the response. %v", encodeError)
+		}
+	} else {
+		_ = json.NewEncoder(responseWriter).Encode([]string{})
 	}
+
 }
 
 func Update(responseWriter http.ResponseWriter, request *http.Request) {
