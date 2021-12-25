@@ -33,7 +33,7 @@ func InsertUser(user model.User) int64 {
 }
 
 func GetUser(id int64) (model.User, error) {
-	var user model.User
+	user := model.User{}
 	row := db.QueryRow(getUsedByIdSQL, id)
 	scanError := row.Scan(&user.Id, &user.Name, &user.Age, &user.Location)
 	switch scanError {
